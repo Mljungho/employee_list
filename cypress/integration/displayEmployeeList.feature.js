@@ -11,7 +11,7 @@ describe("Display list of employees", () => {
 
   it("displays a list with 6 items", () => {
     cy.get("#employee-list").within(() => {
-      cy.get("#.employee-item").should("have.length", 6);
+      cy.get(".employee-item").should("have.length", 6);
     });
   });
 
@@ -19,7 +19,6 @@ describe("Display list of employees", () => {
     cy.get("#employee-list").within(() => {
       cy.get(".employee-item")
         .first()
-        .find(".name")
         .should("contain", "George Bluth");
     });
   });
