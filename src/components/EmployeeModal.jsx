@@ -17,31 +17,23 @@ const EmployeeModal = ({ id }) => {
 
   return (
     <Modal
-      onClose={() => setState({ open: false })}
-      onOpen={() => setState({ open: true })}
+      onClose={() => setOpen({ open: false })}
+      onOpen={() => setOpen({ open: true })}
       open={open}
-      trigger={
-        <Button
-          onClick={() => {
-            getEmployee();
-          }}
-          size="tiny"
-          positiveclassName="view-button"
-        >
-          View
-        </Button>
-      }
+      trigger={<Button className="view-button">Show Modal</Button>}
     >
-      <Modal.Content image id="modal-container">
-        <Image className="image" size="small" src={employee.avatar} wrapped />
+      <Modal.Content image data-cy="modal-container">
+        <Image size="small" src={employee.avatar} wrapped />
         <Modal.Description>
           <Header> {`${employee.first_name} ${employee.last_name}`}</Header>
           <p>Email: {employee.email}</p>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color="black">Edit</Button>
-        <Button negative>Delete</Button>
+        <Button color="black" onClick={() => setOpen(false)}>
+          Edit
+        </Button>
+        <Button onClick={() => setOpen(false)}>Delete</Button>
       </Modal.Actions>
     </Modal>
   );
