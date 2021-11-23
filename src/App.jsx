@@ -1,19 +1,34 @@
 import React, { Component } from 'react'
 import EmployeeList from './components/EmployeeList';
 import { Container, Header } from 'semantic-ui-react'
+import axios from 'axios';
 
 
-class App extends Component {
-  render() {
+const  App =() => {
+// [getter(read)method, setter method]
+  const [employees, setEmployees] = useState([]);
+
+  const fetchEmployees = async () => {
+    const response = await axios.get('https://reqres.in/api/users?per_page=5');
+    setEmployees(response.data.data);
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  } []);
+
+  const employeeList = employees.map((employee) => {
     return (
-      <Container>
-        <Header size="huge" id="header">
-          Employee List
-        </Header>
-        <EmployeeList />
-      </Container>
+      <li key={employee.id}>{`${employee.first_name} ${employee.last_name}`}</li>
+      );
+    });
+  
+    return (
+      <React.Fragment>
+        <h1 data-cy="employee-header">Employee List</h1>
+        <ul data-cy="employee-list">{employeeList}</ul>
+      </React.Fragment>
     );
-  }
-}
-
-export default App;
+  };
+  
+  export default App;
